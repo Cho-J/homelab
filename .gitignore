@@ -1,0 +1,21 @@
+# Secrets et fichiers d'environnement
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+id_rsa
+id_rsa*
+*.kdbx
+
+# Dumps de base de données
+*.sql
+*.sql.gz
+*.dump
+*.pgdump
+*.sqlite
+*.db
+
+# Sauvegardes générées par les scripts
+*.bak

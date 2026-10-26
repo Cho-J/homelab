@@ -1,0 +1,55 @@
+services:
+  app:
+    image: nextcloud:34-apache
+    container_name: sanctum
+    restart: unless-stopped
+    depends_on:
+      - db
+      - redis
+    ports:
+      - 8088:80
+    volumes:
+      - ./html:/var/www/html
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_DB=nextcloud
+      - POSTGRES_USER=nextcloud
+      - POSTGRES_PASSWORD=CHANGE_ME
+      - REDIS_HOST=redis
+      - NEXTCLOUD_ADMIN_USER=CHANGE_ME
+      - NEXTCLOUD_ADMIN_PASSWORD=CHANGE_ME
+      - NEXTCLOUD_TRUSTED_DOMAINS=sanctum.example.lan
+      - TRUSTED_PROXIES=172.16.0.0/12
+      - OVERWRITEPROTOCOL=https
+      - OVERWRITEHOST=sanctum.example.lan
+      - PHP_MEMORY_LIMIT=1G
+      - PHP_UPLOAD_LIMIT=2G
+
+  db:
+    image: postgres:16-alpine
+    container_name: sanctum-db
+    restart: unless-stopped
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=nextcloud
+      - POSTGRES_USER=nextcloud
+      - POSTGRES_PASSWORD=CHANGE_ME
+
+  redis:
+    image: redis:7-alpine
+    container_name: sanctum-redis
+    restart: unless-stopped
+    volumes:
+      - ./redis:/data
+
+  cron:
+    image: nextcloud:34-apache
+    container_name: sanctum-cron
+    restart: unless-stopped
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./html:/var/www/html
+    entrypoint: /cron.sh

@@ -1,0 +1,13 @@
+services:
+  komga:
+    image: ghcr.io/gotson/komga:latest
+    container_name: stan
+    restart: unless-stopped
+    ports:
+      - 8089:25600
+    volumes:
+      - ./config:/config
+      - /mnt/media/comics:/data
+    environment:
+      - TZ=Europe/Paris
+    user: "1000:1000"

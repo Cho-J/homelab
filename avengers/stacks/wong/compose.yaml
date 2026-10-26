@@ -1,0 +1,17 @@
+services:
+  caddy:
+    build: .
+    container_name: wong
+    restart: unless-stopped
+    labels:
+      - "diun.enable=false"
+    ports:
+      - 80:80
+      - 443:443
+      - 443:443/udp
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./data:/data
+      - ./config:/config
+    env_file:
+      - .env

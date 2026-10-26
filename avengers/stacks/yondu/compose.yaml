@@ -1,0 +1,22 @@
+services:
+  suwayomi:
+    image: ghcr.io/suwayomi/tachidesk:latest
+    container_name: yondu
+    restart: unless-stopped
+    ports:
+      - 8091:4567
+    volumes:
+      - ./config:/home/suwayomi/.local/share/Tachidesk
+      - /mnt/media/comics/manga:/manga
+    environment:
+      - TZ=Europe/Paris
+      - AUTO_DOWNLOAD_CHAPTERS=true
+      - DOWNLOAD_AS_CBZ=true
+      - EXTENSION_REPOS=
+      - EXTENSION_STORES=["https://github.com/keiyoushi/extensions/raw/repo/index.pb"]
+      - AUTO_DOWNLOAD_EXCLUDE_UNREAD=false
+      - UPDATE_EXCLUDE_UNREAD=false
+      - UPDATE_EXCLUDE_STARTED=false
+      - UPDATE_EXCLUDE_COMPLETED=false
+      - AUTO_DOWNLOAD_NEW_CHAPTERS_LIMIT=10
+    user: "1000:1000"

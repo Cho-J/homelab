@@ -1,0 +1,107 @@
+{
+    # email ACME : adresse retirée de la version publique
+}
+
+(tls_ovh) {
+    tls {
+        dns ovh {
+            endpoint {env.OVH_ENDPOINT}
+            application_key {env.OVH_APPLICATION_KEY}
+            application_secret {env.OVH_APPLICATION_SECRET}
+            consumer_key {env.OVH_CONSUMER_KEY}
+        }
+    }
+}
+
+*.example.lan {
+    import tls_ovh
+
+    @dockge host dockge.example.lan
+    handle @dockge {
+        reverse_proxy 192.0.2.59:5001
+    }
+
+    @jarvis host jarvis.example.lan
+    handle @jarvis {
+        reverse_proxy https://192.0.2.56:8006 {
+            transport http {
+                tls_insecure_skip_verify
+            }
+        }
+    }
+
+    @mysterio host mysterio.example.lan
+    handle @mysterio {
+        reverse_proxy 192.0.2.57:80
+    }
+
+    @tva host tva.example.lan
+    handle @tva {
+        reverse_proxy 192.0.2.59:8090
+    }
+
+    @edith host edith.example.lan
+    handle @edith {
+        reverse_proxy 192.0.2.59:3000
+    }
+
+    @heimdall host heimdall.example.lan
+    handle @heimdall {
+        reverse_proxy 192.0.2.59:3001
+    }
+
+    @wakanda host wakanda.example.lan
+    handle @wakanda {
+        reverse_proxy 192.0.2.59:8080
+    }
+
+    @loki host loki.example.lan
+    handle @loki {
+        reverse_proxy 192.0.2.59:8081
+    }
+
+    @strange host strange.example.lan
+    handle @strange {
+        reverse_proxy 192.0.2.59:8082
+    }
+
+    @shuri host shuri.example.lan
+    handle @shuri {
+        reverse_proxy 192.0.2.59:8083
+    }
+
+    @karen host karen.example.lan
+    handle @karen {
+        reverse_proxy 192.0.2.59:8084
+    }
+
+    @oracle host oracle.example.lan
+    handle @oracle {
+        reverse_proxy 192.0.2.59:8085
+    }
+
+    @shawarma host shawarma.example.lan
+    handle @shawarma {
+        reverse_proxy 192.0.2.59:8086
+    }
+
+    @sanctum host sanctum.example.lan
+    handle @sanctum {
+	header Strict-Transport-Security "max-age=15552000; includeSubDomains"
+        reverse_proxy 192.0.2.59:8088
+    }
+
+    @stan host stan.example.lan
+    handle @stan {
+        reverse_proxy 192.0.2.59:8089
+    }
+
+    @yondu host yondu.example.lan
+    handle @yondu {
+        reverse_proxy 192.0.2.59:8091
+    }
+
+    handle {
+        respond "Service inconnu" 404
+    }
+}

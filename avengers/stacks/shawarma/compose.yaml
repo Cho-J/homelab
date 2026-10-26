@@ -1,0 +1,33 @@
+services:
+  web_recipes:
+    image: vabene1111/recipes:latest
+    container_name: shawarma
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      - SECRET_KEY=CHANGE_ME
+      - DB_ENGINE=django.db.backends.postgresql
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=tandoor
+      - POSTGRES_PASSWORD=CHANGE_ME
+      - POSTGRES_DB=tandoor
+      - TZ=Europe/Paris
+      - ALLOWED_HOSTS=shawarma.example.lan
+    volumes:
+      - ./staticfiles:/opt/recipes/staticfiles
+      - ./mediafiles:/opt/recipes/mediafiles
+    ports:
+      - 8086:80
+
+  db:
+    image: postgres:16-alpine
+    container_name: shawarma-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=tandoor
+      - POSTGRES_PASSWORD=CHANGE_ME
+      - POSTGRES_DB=tandoor
+    volumes:
+      - ./db:/var/lib/postgresql/data

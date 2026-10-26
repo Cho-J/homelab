@@ -1,0 +1,20 @@
+services:
+  ntfy:
+    image: binwiederhier/ntfy
+    container_name: tva
+    command:
+      - serve
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Paris
+      - NTFY_BASE_URL=https://tva.example.lan
+      - NTFY_BEHIND_PROXY=true
+      - NTFY_AUTH_FILE=CHANGE_ME
+      - NTFY_AUTH_DEFAULT_ACCESS=CHANGE_ME
+      - NTFY_ENABLE_LOGIN=true
+      - NTFY_CACHE_DURATION=48h
+    volumes:
+      - ./cache:/var/cache/ntfy
+      - ./data:/var/lib/ntfy
+    ports:
+      - 8090:80

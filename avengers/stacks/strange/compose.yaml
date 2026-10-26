@@ -1,0 +1,7 @@
+services:
+  cyberchef:
+    image: mpepping/cyberchef:latest
+    container_name: strange
+    restart: unless-stopped
+    ports:
+      - 8082:8000

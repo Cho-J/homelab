@@ -1,0 +1,23 @@
+services:
+  diun:
+    image: crazymax/diun:latest
+    container_name: uatu
+    command: serve
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /opt/stacks:/stacks:ro
+    environment:
+      - TZ=Europe/Paris
+      - LOG_LEVEL=info
+      - DIUN_WATCH_WORKERS=10
+      - DIUN_WATCH_SCHEDULE=0 8 * * *
+      - DIUN_WATCH_JITTER=30s
+      - DIUN_PROVIDERS_DOCKER=true
+      - DIUN_PROVIDERS_DOCKER_WATCHBYDEFAULT=true
+      - DIUN_PROVIDERS_DOCKERFILE_PATTERNS=/stacks/**/Dockerfile*
+      - DIUN_NOTIF_NTFY_ENDPOINT=http://192.0.2.59:8090
+      - DIUN_NOTIF_NTFY_TOPIC=updates
+      - DIUN_NOTIF_NTFY_TOKEN=CHANGE_ME
+      - DIUN_NOTIF_NTFY_PRIORITY=4

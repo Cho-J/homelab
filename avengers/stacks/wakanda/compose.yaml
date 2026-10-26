@@ -1,0 +1,13 @@
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: wakanda
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+    ports:
+      - 8080:80
+    environment:
+      - DOMAIN=https://wakanda.example.lan
+      - SIGNUPS_ALLOWED=false
+      - WEBSOCKET_ENABLED=true

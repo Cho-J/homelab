@@ -1,0 +1,11 @@
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: edith
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    volumes:
+      - ./config:/app/config
+    environment:
+      - HOMEPAGE_ALLOWED_HOSTS=edith.example.lan

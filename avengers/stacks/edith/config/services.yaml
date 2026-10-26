@@ -1,0 +1,69 @@
+- Infrastructure:
+    - Jarvis:
+        href: https://jarvis.example.lan
+        description: Proxmox (Hyperviseur)
+    - Mysterio:
+        href: https://mysterio.example.lan
+        description: AdGuard (DNS filtrant)
+    - Avengers:
+        href: https://dockge.example.lan
+        description: Dockge (Gestion Docker)
+    - Wakanda:
+        href: https://wakanda.example.lan
+        description: Vaultwarden (Mots de passe)
+
+- Services:
+    - TVA:
+        href: https://tva.example.lan
+        description: ntfy (Notifications)
+    - Heimdall:
+        href: https://heimdall.example.lan
+        description: Uptime Kuma (Supervision)
+        widget:
+          type: uptimekuma
+          url: http://192.0.2.59:3001
+          slug: infra
+    - Sanctum:
+        href: https://sanctum.example.lan
+        description: Nextcloud (Agenda, tâches, fichiers)
+    - Stan:
+        href: https://stan.example.lan
+        description: Komga (Mangas et comics)
+    - Yondu:
+        href: https://yondu.example.lan
+        description: Suwayomi (Recuperation manga)
+- Supervision:
+    - Certificat wildcard:
+        widget:
+          type: customapi
+          url: http://192.0.2.59:3001/api/status-page/infra
+          mappings:
+            - field:
+                publicGroupList:
+                  2:
+                    monitorList:
+                      7:
+                        certExpiryDaysRemaining
+              label: Jours restants
+    - Healthchecks:
+        href: https://healthchecks.io/checks/
+        description: Surveillance externe
+- Outils:
+    - Loki:
+        href: https://loki.example.lan
+        description: Stirling PDF (Manipulation PDF)        
+    - Strange:
+        href: https://strange.example.lan
+        description: CyberChef (Encodage/analyse)
+    - Shuri:
+        href: https://shuri.example.lan
+        description: IT-Tools (Outils dev)
+    - Karen:
+        href: https://karen.example.lan
+        description: FreshRSS (Veille)    
+    - Oracle:
+        href: https://oracle.example.lan
+        description: Docmost (Documentation)
+    - Shawarma:
+        href: https://shawarma.example.lan
+        description: tandoor (recettes)
